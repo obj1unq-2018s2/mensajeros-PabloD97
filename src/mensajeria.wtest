@@ -1,4 +1,7 @@
 import mensajeros.*
+import mensajero.*
+import destinos.*
+
 
 test "La mensajeria tiene a neo como empleado si lo agregarmos" {
 	mensajeria.contratar(neo)
@@ -11,3 +14,101 @@ test "Si neo es empleado, Hay un mensajero que puede enviar el paquete" {
 	paquete.destino(matrix)
 	assert.that(mensajeria.mensajeros().contains(neo))
 }
+
+test "Neo no puede llevar un paquete"{
+	mensajeria.contratar(neo)
+	assert.that(not mensajeria.entregarPaquete(matrix))
+}
+
+test "Robertito puede llevar el paquete"{
+	mensajeria.contratar(roberto)
+	roberto.andaEn(camion)
+	roberto.asignarVehiculo(camion)
+	paquete.pagar()
+	assert.that(mensajeria.entregarPaquete(puenteDeBrooklyn) )
+}
+
+
+test "contratar a un empleado"{
+	mensajeria.contratar(roberto)
+	assert.that(mensajeria.mensajeros().contains(roberto))
+}
+
+test "despedir mensajero"{
+	mensajeria.contratar(roberto)
+	mensajeria.despedirA(roberto)
+	assert.that(not mensajeria.mensajeros().contains(roberto))
+}
+
+test "rajar a todos"{
+	mensajeria.contratar(roberto)
+	mensajeria.contratar(neo)
+	mensajeria.despedirATodos()
+	assert.that(mensajeria.mensajeros().size() == 0)
+}
+
+test "Mensajeria es grande"{
+	mensajeria.contratar(roberto)
+	mensajeria.contratar(neo)
+	mensajeria.contratar(chuckNorris)
+	assert.that(mensajeria.mensajariaGrande())
+}
+
+test "El primer mensajero puede entregar el mensaje"{
+	mensajeria.contratar(roberto)
+	mensajeria.contratar(neo)
+	paquete.pagar()
+	paquete.destino(puenteDeBrooklyn)
+	assert.that(mensajeria.primeroPuedeEntregar())
+}
+
+test "el peso del ultimo mensajero"{
+	mensajeria.contratar(roberto)
+	mensajeria.contratar(neo)
+	mensajeria.contratar(chuckNorris)
+	assert.equals(900, mensajeria.pesoDelUltimo())
+}
+
+test "test algun mensajero puede entregar"{
+	mensajeria.contratar(roberto)
+	mensajeria.contratar(neo)
+	mensajeria.contratar(chuckNorris)
+	paquete.pagar()
+	paquete.destino(matrix)
+	assert.that(mensajeria.mensajeriaPuedeEntregar())
+}
+
+test "test es facil"{
+	mensajeria.contratar(roberto)
+	mensajeria.contratar(neo)
+	mensajeria.contratar(chuckNorris)
+	paquete.pagar()
+	paquete.destino(puenteDeBrooklyn)
+	assert.that(mensajeria.paqueteFacil())
+}
+
+test "empleados capaces"{
+	mensajeria.contratar(roberto)
+	mensajeria.contratar(neo)
+	mensajeria.contratar(chuckNorris)
+	paquete.pagar()
+	paquete.destino(matrix)
+	assert.equals([neo,chuckNorris] ,mensajeria.mensajerosCapaces())
+}
+
+test "mensajeria con sobrepeso"{
+	mensajeria.contratar(roberto)
+	roberto.asignarVehiculo(camion)
+	mensajeria.contratar(neo)
+	mensajeria.contratar(chuckNorris)
+	assert.that( mensajeria.sobrePeso())
+}
+
+
+
+
+
+
+
+
+

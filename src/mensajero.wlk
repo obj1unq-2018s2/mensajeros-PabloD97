@@ -1,10 +1,10 @@
 import mensajeros.*
 
 object roberto {
-
-	var property andaEn 
+	var property peso= 90
+	var property andaEn = null
 	
-	method peso()= if(andaEn = bici) bici.peso() else if(andaEn = camion) camion.peso() 
+	method asignarVehiculo(vehiculo){ peso+= vehiculo.peso() }
 	method puedeLlamar()= false	
 }
 
@@ -13,18 +13,19 @@ object bici{
 }
 
 object camion{
-	var property acoplado=1
-	method peso()= 500 * acoplado
+	var property acoplados=1
+	method peso()= 500 * acoplados
 }
 
 object chuckNorris{
 	
 	method peso()= 900
-	method puedeLamar()= true
+	method puedeLlamar()= true
 }
 
 object neo{
 	var property tieneCredito= true
 	
+	method peso()=0
 	method puedeLlamar()= tieneCredito
 }
